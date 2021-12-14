@@ -13,5 +13,5 @@ Wynik działania aplikacji pokazano poniżej.
 ```
 docker run --rm -it --name dcv -v ${PWD}:/input pmsipilot/docker-compose-viz render -m image docker-compose.yml --output-file=achmea.techday.png --force
 ```
-![alt text](https://github.com/Penxulidao/Pwcho2/blob/main/screenshots/schemat.png "Http")
+![alt text](https://github.com/Penxulidao/Pwcho2/blob/main/screenshots/schemat.png "Schemat")
 

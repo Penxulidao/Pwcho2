@@ -5,6 +5,7 @@
 docker compose up --build
 ```
 Wynik działania aplikacji pokazano poniżej.
+
 ![alt text](https://github.com/Penxulidao/Pwcho2/blob/main/screenshots/Page.PNG "Http")
 
 

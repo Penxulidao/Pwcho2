@@ -1,0 +1,56 @@
+version: '3'
+services:
+
+  #nginx
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 6666:80
+      - 6001:8080
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - backend
+      - frontend
+  php:
+    build: ./php
+    container_name: php
+    volumes:
+      - ./app:/var/www/public
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DB}
+    depends_on:
+      - mysql
+    networks:
+      - backend
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=${MYSQL_HOST}
+    depends_on:
+      - mysql
+    networks:
+      - backend
+  mysql:
+    image: percona:8
+    container_name: ${MYSQL_HOST}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+networks:
+  backend:
+    external: false
+    internal: true
+  frontend:
+    external: true
